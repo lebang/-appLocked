@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,11 @@ public class MainActivity extends Activity{
         mAppsAdapter = new AppsAdapter(this, mAppInfos);
         mInstallAppsView.setLayoutManager(mLayoutManager); // 设置布局管理器
         mInstallAppsView.setAdapter(mAppsAdapter);
+        mAppsAdapter.setOnItemListener(new AppsAdapter.OnItemListener() {
+            @Override
+            public void onItemClick(View view, int positon) {
+                Toast.makeText(MainActivity.this, "" + positon, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 }

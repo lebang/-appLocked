@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final AppInfo appInfo = mDatas.get(position);
         holder.mIcon.setImageDrawable(appInfo.appIcon);
         holder.mName.setText(appInfo.appName);
@@ -43,6 +44,12 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
                 } else {
                     Utils.enableApp(appInfo.packageName);
                 }
+            }
+        });
+        holder.mLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnItemListener.onItemClick(holder.mLayout, position);
             }
         });
     }
@@ -57,12 +64,14 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
+        LinearLayout mLayout;
         ImageView mIcon;
         TextView mName;
         CheckBox mCheckBox;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            mLayout = (LinearLayout) itemView.findViewById(R.id.view_item);
             mIcon = (ImageView) itemView.findViewById(auto.com.applocked.R.id.app_icon);
             mName = (TextView) itemView.findViewById(auto.com.applocked.R.id.app_name);
             mCheckBox = (CheckBox) itemView.findViewById(auto.com.applocked.R.id.app_ck);
