@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class MainActivity extends Activity{
     private RecyclerView mInstallAppsView;
     private AppsAdapter mAppsAdapter;
     private ArrayList<AppInfo> mAppInfos;
+    private final static String THE_APP_PKG_NAME = "auto.com.applocked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,9 @@ public class MainActivity extends Activity{
                 appInfo.versionName = packageInfo.versionName;
                 appInfo.versionCode = packageInfo.versionCode;
                 appInfo.enabled = packageInfo.applicationInfo.enabled;
+                if (TextUtils.equals(appInfo.packageName, THE_APP_PKG_NAME)){
+                    continue;
+                }
                 mAppInfos.add(appInfo);
             }
         }
