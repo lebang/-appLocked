@@ -36,6 +36,11 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         final AppInfo appInfo = mDatas.get(position);
         holder.mIcon.setImageDrawable(appInfo.appIcon);
         holder.mName.setText(appInfo.appName);
+        if (!appInfo.enabled){
+            holder.mCheckBox.setChecked(true);
+        } else {
+            holder.mCheckBox.setChecked(false);
+        }
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -76,7 +81,6 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
             mName = (TextView) itemView.findViewById(auto.com.applocked.R.id.app_name);
             mCheckBox = (CheckBox) itemView.findViewById(auto.com.applocked.R.id.app_ck);
         }
-
     }
 
     public interface OnItemListener{

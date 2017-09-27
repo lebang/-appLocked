@@ -13,23 +13,33 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements AppsAdapter.OnItemListener{
 
     private static final String TAG = "MainActivity";
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mInstallAppsView;
     private AppsAdapter mAppsAdapter;
     private ArrayList<AppInfo> mAppInfos;
-    private final static String THE_APP_PKG_NAME = "auto.com.applocked";
+    private final static String CURRENT_APP_PKG_NAME = "auto.com.applocked";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(auto.com.applocked.R.layout.activity_main);
+        getAppList();
         initView();
     }
 
     private void initView() {
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mInstallAppsView = (RecyclerView) findViewById(auto.com.applocked.R.id.install_apps);
+        mAppsAdapter = new AppsAdapter(this, mAppInfos);
+        mInstallAppsView.setLayoutManager(mLayoutManager); // 设置布局管理器
+        mInstallAppsView.setAdapter(mAppsAdapter);
+        mAppsAdapter.setOnItemListener(this);
+    }
+
+    private void getAppList() {
         mAppInfos = new ArrayList<AppInfo>();
         List<PackageInfo> packageInfos = getPackageManager().getInstalledPackages(0);
         for (int i = 0, len = packageInfos.size(); i < len; i++) {
@@ -42,22 +52,16 @@ public class MainActivity extends Activity{
                 appInfo.versionName = packageInfo.versionName;
                 appInfo.versionCode = packageInfo.versionCode;
                 appInfo.enabled = packageInfo.applicationInfo.enabled;
-                if (TextUtils.equals(appInfo.packageName, THE_APP_PKG_NAME)){
+                if (TextUtils.equals(appInfo.packageName, CURRENT_APP_PKG_NAME)){
                     continue;
                 }
                 mAppInfos.add(appInfo);
             }
         }
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mInstallAppsView = (RecyclerView) findViewById(auto.com.applocked.R.id.install_apps);
-        mAppsAdapter = new AppsAdapter(this, mAppInfos);
-        mInstallAppsView.setLayoutManager(mLayoutManager); // 设置布局管理器
-        mInstallAppsView.setAdapter(mAppsAdapter);
-        mAppsAdapter.setOnItemListener(new AppsAdapter.OnItemListener() {
-            @Override
-            public void onItemClick(View view, int positon) {
-                Toast.makeText(MainActivity.this, "" + positon, Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
+
+    @Override
+    public void onItemClick(View view, int positon) {
+        Toast.makeText(this, "" + positon, Toast.LENGTH_SHORT).show();
     }
 }
