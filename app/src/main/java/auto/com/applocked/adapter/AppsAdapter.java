@@ -40,6 +40,7 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
         final AppInfo appInfo = mDatas.get(position);
         holder.mIcon.setImageDrawable(appInfo.appIcon);
         holder.mName.setText(appInfo.appName);
+        holder.mLayout.setTag(appInfo);
         if (!appInfo.enabled){
             holder.mCheckBox.setChecked(true);
         } else {
@@ -50,8 +51,10 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     Utils.disableApp(appInfo.packageName);
+                    appInfo.enabled = false;
                 } else {
                     Utils.enableApp(appInfo.packageName);
+                    appInfo.enabled = true;
                 }
             }
         });
@@ -59,6 +62,13 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 mOnItemListener.onItemClick(holder.mLayout, position);
+            }
+        });
+        holder.mLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mOnItemListener.onItemLongClick(view, position);
+                return false;
             }
         });
     }
@@ -89,5 +99,6 @@ public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
 
     public interface OnItemListener{
         void onItemClick(View view, int positon);
+        void onItemLongClick(View view, int positon);
     }
 }

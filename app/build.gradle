@@ -12,12 +12,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     productFlavors {
-        google {
-            applicationId "auto.com.applocked.google"
-        }
-        xiaomi {
-            applicationId "auto.com.applocked.xiaomi"
-        }
+//        google {
+//            applicationId "auto.com.applocked.google"
+//        }
+//        xiaomi {
+//            applicationId "auto.com.applocked.xiaomi"
+//        }
     }
     signingConfigs {
         config {
@@ -45,5 +45,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:25+'
+    compile 'com.android.support:design:25+'
     compile files('libs/MiStats_SDK_Client_1_9_6.jar')
 }

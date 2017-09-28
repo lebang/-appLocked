@@ -3,6 +3,7 @@ package auto.com.applocked;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.xiaomi.mistatistic.sdk.MiStatInterface;
 
@@ -29,14 +30,14 @@ public class MainAppliction extends Application {
 
     protected static void init(Context context) {
         sContext = context;
-        sAppChannel = sContext.getResources().getString(R.string.app_channel);
+//        sAppChannel = sContext.getResources().getString(R.string.app_channel);
+        sAppChannel = "default";
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         init(getApplicationContext());
-
         try {
             MiStatInterface.initialize(sContext, appID, appKey, sAppChannel);
         } catch (Exception e) {
