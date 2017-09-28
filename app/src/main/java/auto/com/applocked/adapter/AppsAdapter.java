@@ -1,4 +1,4 @@
-package auto.com.applocked;
+package auto.com.applocked.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import auto.com.applocked.R;
+import auto.com.applocked.fn.Utils;
+import auto.com.applocked.model.AppInfo;
 
 public class AppsAdapter extends RecyclerView.Adapter<AppsAdapter.ViewHolder> {
 

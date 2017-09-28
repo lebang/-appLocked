@@ -1,4 +1,4 @@
-package auto.com.applocked;
+package auto.com.applocked.fn;
 
 import android.util.Log;
 

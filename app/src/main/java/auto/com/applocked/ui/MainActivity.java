@@ -1,4 +1,4 @@
-package auto.com.applocked;
+package auto.com.applocked.ui;
 
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
@@ -13,7 +13,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements AppsAdapter.OnItemListener{
+import auto.com.applocked.model.AppInfo;
+import auto.com.applocked.adapter.AppsAdapter;
+
+public class MainActivity extends Activity implements AppsAdapter.OnItemListener {
 
     private static final String TAG = "MainActivity";
     private RecyclerView.LayoutManager mLayoutManager;
